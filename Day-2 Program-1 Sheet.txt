@@ -1,0 +1,19 @@
+from typing import List
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        lo = 0
+        if not matrix:
+            return False
+        hi = (len(matrix) * len(matrix[0])) - 1
+
+
+        while lo <= hi:
+            mid = (lo + (hi - lo) // 2)
+            if matrix[mid // len(matrix[0])][mid % len(matrix[0])] == target:
+                return True
+            if matrix[mid // len(matrix[0])][mid % len(matrix[0])] < target:
+                lo = mid + 1
+            else:
+                hi = mid - 1
+        return False
