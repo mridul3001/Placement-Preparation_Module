@@ -1,0 +1,30 @@
+def median(nums1, nums2) -> float:
+    final_array = []
+    i = 0
+    j = 0
+    k = 0
+    while i < len(nums1) and j < len(nums2):
+        if nums1[i] < nums2[j]:
+            final_array.append(nums1[i])
+            i += 1
+        else:
+            final_array.append(nums2[j])
+            j += 1
+    if i < len(nums1):
+        while i < len(nums1):
+            final_array.append(nums1[i])
+            i += 1
+    if j < len(nums2):
+        while j < len(nums2):
+            final_array.append(nums2[j])
+            j += 1
+    n = len(nums1) + len(nums2)
+    if n % 2 == 1:
+        return final_array[((n + 1) // 2) - 1]
+    else:
+        return (final_array[(n // 2) - 1] + final_array[(n // 2)]) / 2
+
+if __name__ == "__main__":
+    nums1 = [1, 4, 7, 10, 12]
+    nums2 = [2, 3, 6, 15]
+    print(f"The median of two sorted array is {median(nums1, nums2)}")
