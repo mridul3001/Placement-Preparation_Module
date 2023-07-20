@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+void GetMax(vector < int > nums, int l, int r, vector < int > & arr) {
+  int i, maxi = INT_MIN;
+  for (i = l; i <= r; i++)
+    maxi = max(maxi, nums[i]);
+  arr.push_back(maxi);
+}
+vector < int > maxSlidingWindow(vector < int > & nums, int k) {
+  int left = 0, right = 0;
+  int i, j;
+  vector < int > arr;
+  while (right < k - 1) {
+    right++;
+  }
+  while (right < nums.size()) {
+    GetMax(nums, left, right, arr);
+    left++;
+    right++;
+  }
+  return arr;
+}
+int main() {
+  int i, j, n, k = 3, x;
+  vector < int > arr {
+4,0,
+-1,
+3,
+5,
+3,
+6,
+8};
+  vector < int > ans;
+  ans = maxSlidingWindow(arr, k);
+  cout << "Maximum element in every " << k << " window " << endl;
+  for (i = 0; i < ans.size(); i++)
+    cout << ans[i] << "  ";
+  return 0;
+}
