@@ -1,0 +1,40 @@
+'''
+    Time complexity: O(N)
+    Space complexity: O(N)
+	
+    Where 'N' is the number of nodes in a binary tree.
+'''
+
+def connectNodes(root):
+
+    # Create queue and enqueue address of root in it.
+    que = []
+    que.append(root)
+
+    # Number of nodes in current level.
+    nodesCount = 1
+
+    while(len(que) != 0):
+        previous = None
+
+        # Traversing over nodes of current level.
+        while(nodesCount > 0):
+            if previous != None:
+                previous.next = que[0]
+
+            previous = que[0]
+            # Pushing left and right child of current node in queue. 
+            if que[0].left != None:
+                que.append(que[0].left)
+
+            if que[0].right != None:
+                que.append(que[0].right)
+
+            que.pop(0)
+
+            nodesCount -= 1
+        
+        # Updating number of nodes in current level. 
+        nodesCount = len(que)
+
+                

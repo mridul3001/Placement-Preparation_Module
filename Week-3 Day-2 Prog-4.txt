@@ -1,0 +1,37 @@
+'''
+from typing import List
+
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+def util(preOrder: List[int]):
+
+    # If the length of the preOrder traversal is 0 return None
+    if not len(preOrder):
+        return None
+
+    # Set the root as the first element of the preOrder traversal
+    root = TreeNode(preOrder[0])
+
+    # All the nodes smaller than the root will go in the left subtree
+    leftPreOrder = [num for num in preOrder[1:] if num < preOrder[0]]
+
+    # All the nodes smaller than the root will go in the right subtree
+    rightPreOrder = [num for num in preOrder[1:] if num > preOrder[0]]
+
+    # Call the method on left and right subtree of the root
+    root.left = util(leftPreOrder)
+    root.right = util(rightPreOrder)
+
+    # Return the root
+    return root
+
+
+def preOrderTree(preOrder: List[int]) -> TreeNode:
+
+    # Return the util function
+    return util(preOrder)
+

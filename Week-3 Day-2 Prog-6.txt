@@ -1,0 +1,37 @@
+
+def inorder(root, inorderArray):
+    if root == None:
+        return
+
+    inorder(root.left, inorderArray)
+
+    inorderArray.append(root.data)
+
+    inorder(root.right, inorderArray)
+
+
+def predecessorSuccessor(root, key):
+
+    # To store the inorder traversal of the BST.
+    inorderArray = []
+
+    inorder(root, inorderArray)
+
+    
+    predecessor = -1
+    successor = -1
+    
+    for i in range(len(inorderArray)):
+        
+        if inorderArray[i] == key:
+            #If predecessor exist.
+            if i - 1 >= 0:
+                predecessor = inorderArray[i-1]
+
+            # If successor exist.
+            if i + 1 < len(inorderArray):
+                successor = inorderArray[i+1]
+
+            break
+
+    return [predecessor, successor]

@@ -1,0 +1,11 @@
+def searchInBST(root, x):
+    if root == None:
+        return False
+    elif (root.data == x):
+        return True
+    elif(root.data < x):
+        # Recursively check for right subtree. 
+        return searchInBST(root.right, x)
+    else:
+        # Recursively check for left subtree. 
+        return searchInBST(root.left, x)

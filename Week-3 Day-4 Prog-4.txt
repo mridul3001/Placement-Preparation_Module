@@ -1,0 +1,65 @@
+
+
+
+
+def countDistinctElements(arr, k):
+
+
+
+    n = len(arr)
+
+
+    # Create an array to store the number of distinct elements in all windows
+
+    answer = [ 0 for i in range(n - k + 1)]
+
+
+    # Traverse through each window
+
+    for windowNumber in range(n - k + 1):
+
+
+        # The variable count store the number of distinct elements in the current window
+
+        count = 0
+
+
+        # Traverse through the elements present in the current window
+
+        for index in range(windowNumber, windowNumber + k):
+
+
+            # The variable distinctElement will store if the current element is distinct in the current window or not
+
+            distinctElement = True
+
+
+
+            for pos in range(windowNumber, index):
+
+
+                # Check if ARR[index] is equal to ARR[pos]
+
+                if (arr[index] == arr[pos]):
+
+                    distinctElement = False
+
+                    break
+
+            
+            # Check if distinctElement is true
+
+            if (distinctElement == True):
+
+                count += 1
+
+            
+        # Insert count in the array answer
+
+        answer[windowNumber] = count
+
+
+    # Return the array answer
+
+    return answer
+

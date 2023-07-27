@@ -1,0 +1,90 @@
+
+
+from queue import Queue
+
+def isGraphBirpartite(edges):
+
+    n = len(edges)
+
+
+
+    graph = [[] for i in range(n)]
+
+
+
+    for i in range(n):
+
+        for j in range(n):
+
+            if edges[i][j]:
+
+                graph[i].append(j)
+
+                graph[j].append(i)
+
+
+
+
+
+    color = [-1 for i in range(n)]
+
+
+    # Marking the color of root as 0.
+
+    for i in range(n):
+
+        if color[i] != -1:
+
+            continue
+
+        color[i] = 0
+
+
+
+        que = Queue()
+
+
+
+        que.put(i)
+
+        c = 0
+
+
+
+        while(not que.empty()):
+
+            node = que.get()
+
+
+            # Traversing all the neighbours of the current node.
+
+
+
+            for nbr in graph[node]:
+
+                if color[nbr] != -1 and color[nbr] == color[node]:
+
+                    return False
+
+                elif color[nbr] == -1:
+
+                    color[nbr] = not color[node]
+
+                    que.put(nbr)
+
+
+
+            c = not c
+
+
+
+
+
+    return True
+
+
+
+
+
+
+

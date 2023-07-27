@@ -1,0 +1,86 @@
+
+import queue
+import sys
+
+sys.setrecursionlimit(10 ** 6)
+
+
+class BinaryTreeNode:
+
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+def helper(root, minn, maxx):
+
+    ##An empty tree is a BST
+    if root == None:
+        return True
+
+    #False if this node violates the min/max constraint
+    if (root.data < minn or root.data > maxx):
+        return False
+
+    #Otherwise check the subtrees recursively, modifying the min or max constraint
+    leftSearch = helper(root.left, minn, root.data)
+    rightSearch = helper(root.right, root.data, maxx)
+
+    return leftSearch and rightSearch
+
+
+def validateBST(root):
+    return helper(root, -1 * sys.maxsize, sys.maxsize)
+
+
+def buildLevelTree(levelorder):
+    index = 0
+    length = len(levelorder)
+
+
+
+    if length <= 0 or levelorder[0] == -1:
+        return None
+
+    root = BinaryTreeNode(levelorder[index])
+    index += 1
+
+    q = queue.Queue()
+    q.put(root)
+
+    while not q.empty():
+
+        currentNode = q.get()
+        leftChild = levelorder[index]
+        index += 1
+
+        if leftChild != -1:
+            leftNode = BinaryTreeNode(leftChild)
+            currentNode.left = leftNode
+            q.put(leftNode)
+
+        rightChild = levelorder[index]
+        index += 1
+
+        if rightChild != -1:
+            rightNode = BinaryTreeNode(rightChild)
+            currentNode.right = rightNode
+            q.put(rightNode)
+
+    return root
+
+
+t = int(sys.stdin.readline().strip())
+while t > 0:
+
+    li = list(map(int, sys.stdin.readline().strip().split(" ")))
+    root = buildLevelTree(li)
+    if (validateBST(root)):
+        print('true')
+    else:
+        print('false')
+    t = t - 1
+
+
+

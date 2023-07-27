@@ -1,0 +1,40 @@
+class BinaryTreeNode:
+     def __init__(self, data):
+     self.data = data
+     self.left = None
+     self.right = None
+
+
+
+def BTtoDLL(root):
+
+    # Base case.
+    if(root == None):
+        return root
+
+    if(root.left != None):
+
+        left = BTtoDLL(root.left)
+
+        # Inorder predecessor.
+        while(left.right != None):
+            left = left.right
+
+        left.right = root
+        root.left = left
+
+    if(root.right != None):
+
+        right = BTtoDLL(root.right)
+
+        # Inorder successor.
+        while(right.left != None):
+            right = right.left
+
+        right.left = root
+        root.right = right
+
+    while (root.left != None):
+        root = root.left
+
+    return root

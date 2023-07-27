@@ -1,0 +1,42 @@
+
+class TreeNode :
+    def __init__(self, val) :
+        self.val = val
+        self.left = None
+        self.right = None
+
+    def __del__(self):
+        if self.left:
+            del self.left
+        if self.right:
+            del self.right
+
+
+# Recursive function that return the root node of a subtree, for particular array segment.
+def convert(arr, start, end):
+
+    # Base case.
+    if (start > end):
+        return None
+    else:
+
+        # Find 'mid' index of array and make it root node.
+        mid = (start + end) // 2
+        rootNode = TreeNode(arr[mid])
+
+        # Call 'convert' function for the left part of array to make leftSubtree of root node.
+        rootNode.left = convert(arr, start, mid - 1)
+
+        # Call 'convert' function for the right part of array to make rightSubtree of root node.
+        rootNode.right = convert(arr, mid + 1, end)
+
+        # Return the rootNode.
+        return rootNode
+
+def sortedArrToBST(arr, n):
+
+    # Call the recursive function to convert array into tree.
+    root = convert(arr, 0, n - 1)
+
+    # Return the root node of tree.
+    return root

@@ -1,0 +1,51 @@
+
+from sys import stdin 
+
+size = 0
+aux = []
+
+def Kthlargest(k, arr):
+    
+    global size
+    global aux
+    
+    size = k
+    aux = []
+    
+    for it in arr:
+        aux.append(it)
+        
+    aux.sort(reverse = True)
+    
+def add(num):
+    
+    global aux
+    
+    aux.append(num)
+    aux.sort(reverse = True)
+    
+def getKthLargest():
+    
+    global aux
+
+    # The kth largest element will always be at the top of the queue.
+    return aux[size - 1]
+        
+q, k = map(int, input().split(" "))
+
+arr = list(map(int, stdin.readline().rstrip().split(" ")))
+
+Kthlargest(k, arr)
+
+for i in range(q):
+    ip = list(map(int, stdin.readline().rstrip().split(" ")))
+
+    # Add the value at ip[1] in the pool and sort it.
+    if len(ip) == 2: 
+        add(ip[1]) 
+
+    # Means ip[0] is 2 definitely.    
+    else:
+
+        # Returns/prints the kth largest no.
+        print(getKthLargest()) 

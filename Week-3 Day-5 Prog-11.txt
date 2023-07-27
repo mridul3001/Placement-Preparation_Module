@@ -1,0 +1,70 @@
+
+from collections import defaultdict
+ 
+class Graph():
+
+    def __init__(self, nodes):
+
+        # Array containing adjacency lists.
+        self.adj = defaultdict(list)
+        # Number of Nodes.
+        self.noOfNodes = nodes
+ 
+    # To add an edge to between two nodes in a Graph.
+    def addEdge(self, u, v):
+        self.adj[u].append(v)
+ 
+    # Helper function for checkCyclic().
+    def isCyclicUtil(self, v, checkVisited, recStack):
+ 
+        # Make the current node as visited and part of recursion stack.
+        checkVisited[v] = True
+        recStack[v] = True
+ 
+        # Recur for all the nodes adjacent to this node.
+        for neighbour in self.adj[v]:
+            if checkVisited[neighbour] == False:
+                if self.isCyclicUtil(neighbour, checkVisited, recStack) == True:
+                    return True
+            elif recStack[neighbour] == True:
+                return True
+ 
+        # Remove the vertex from recursion stack.
+        recStack[v] = False
+        return False
+ 
+    # Returns true if there exists a cycle in the given graph.
+    def isCyclic(self):
+
+        '''
+            Initialise checkVisited as false i.e.
+            nodes are not visited yet. 
+        '''
+        checkVisited = [False] * (self.noOfNodes + 1)
+
+        # Initialise nodes as not a part of recursion stack.
+        recStack = [False] * (self.noOfNodes + 1)
+
+        ''' 
+            Call the recursive helper function to detect cycle 
+            in different DFS trees. 
+        '''
+        
+        for node in range(self.noOfNodes):
+            if checkVisited[node] == False:
+                if self.isCyclicUtil(node,checkVisited,recStack) == True:
+                    return True
+        return False
+
+
+def detectCycleInDirectedGraph(n, edges):
+    
+    directedG = Graph(n)
+
+    m = len(edges)
+
+    for i in range(m):
+        directedG.addEdge(edges[i][0]- 1, edges[i][1] - 1)
+
+    return directedG.isCyclic()
+    

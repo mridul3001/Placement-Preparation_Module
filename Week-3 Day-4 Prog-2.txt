@@ -1,0 +1,33 @@
+
+
+def findMedian(arr, n):
+
+    # To store the incoming stream elements
+    store = []
+
+    # To store the medians
+    medians = []
+
+    for i in range(n):
+        # Storing the incoming data from stream in a vector 'store'
+        store.append(arr[i])
+
+        # Sorting the vector to arrange all the elements in sorted order
+        store.sort()
+
+        median = 0
+        # Even number of elements are read, (Note - 0 based indexing is used)
+        if((i+1) % 2 == 0):
+
+            # Average of middle two values
+            median = (store[i//2] + store[(i+1)//2]) // 2
+
+        # odd number of elements are read
+        else:
+
+            # The middle value of the sorted arrangement of the elements read so far
+            median = store[i//2]
+
+        medians.append(median)
+
+    return medians

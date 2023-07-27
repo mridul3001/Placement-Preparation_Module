@@ -1,0 +1,32 @@
+'''
+    Time Complexity: O(N^2)
+    Space Complexity: O(N)
+    
+    where N is the total number of nodes in the binary tree.
+'''
+
+def isBST(root, min, max):
+    if root == None:
+        return True
+
+    if root.data < min or root.data > max:
+        return False
+
+    return isBST(root.left, min, root.data - 1) and isBST(root.right, root.data + 1, max)
+
+
+def size(root):
+    if root == None:
+        return 0
+    
+    return 1 + size(root.left) + size(root.right)
+
+
+def largestBST(root):
+    
+    # Current Subtree is BST.
+    if isBST(root, -1e9, 1e9) == True:
+        return size(root)
+    
+    # Find largest BST in left and right subtrees.
+    return max(largestBST(root.left), largestBST(root.right))
